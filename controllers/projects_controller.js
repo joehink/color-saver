@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/new', (req, res) => {
-  res.render('sessions/new.ejs');
+router.get('/', (req, res) => {
+  res.render('projects/index.ejs');
 })
 
 module.exports = router;

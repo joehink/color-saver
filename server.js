@@ -1,8 +1,9 @@
 require('dotenv').config();
 // DEPENDENCIES
 const express = require('express');
-const mongoose = require('mongoose');
 const methodOverride = require('method-override');
+const mongoose = require('mongoose');
+const session = require('express-session')
 
 // CONFIGURATION
 const app = express();
@@ -13,6 +14,11 @@ const MONGO_URI = process.env.MONGO_URI;
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static('public'));
 app.use(methodOverride('_method'));
+app.use(session({
+  secret: process.env.SECRET,
+  resave: false,
+  saveUninitialized: false
+}));
 
 // DATABASE
 mongoose.connect(MONGO_URI, { useNewUrlParser: true })
@@ -26,3 +32,19 @@ app.listen(PORT, () => {
 })
 
 // ROUTES
+app.get('/', (req, res) => {
+  if (req.session.currentUser) {
+    res.redirect('/projects');
+  } else {
+    res.render('index.ejs');
+  }
+})
+
+const usersController = require('./controllers/users_controller');
+app.use('/users', usersController);
+
+const sessionsController = require('./controllers/sessions_controller');
+app.use('/sessions', sessionsController);
+
+const projectsController = require('./controllers/projects_controller');
+app.use('/projects', projectsController);
