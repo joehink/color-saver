@@ -24,9 +24,51 @@ router.get('/new', (req, res) => {
   res.render('projects/new.ejs');
 });
 
+// Show project
+router.get('/:id', async (req, res) => {
+  try {
+    // find project
+    const foundProject = await Project.findById(req.params.id);
+
+    // render project show page with project data
+    res.render('projects/show.ejs', { project: foundProject });
+  } catch (err) {
+    console.error(err);
+    res.redirect('/projects');
+  }
+});
+
 // Edit project
-router.get('/:id/edit', (req, res) => {
-  res.send(req.pararms.id);
+router.get('/:id/edit', async (req, res) => {
+  try {
+    // find project
+    const foundProject = await Project.findById(req.params.id);
+
+    // render project edit page with project data
+    res.render('projects/edit.ejs', { project: foundProject });
+  } catch (err) {
+    console.error(err);
+    res.redirect(`/projects/${req.params.id}`);
+  }
+});
+
+// Update project
+router.patch('/:id', async (req, res) => {
+  try {
+    // PATCH because we dont't want to lose the colors array in the project
+    // update title and description with req.body
+    const updatedProject = await Project.findByIdAndUpdate(
+      req.params.id,
+      { $set: req.body },
+      { new: true }
+    );
+
+    // redirect to project show page
+    res.redirect(`/projects/${req.params.id}`);
+  } catch (err) {
+    console.error(err);
+    res.redirect('/projects');
+  }
 })
 
 // Create Project
@@ -50,6 +92,6 @@ router.post('/', async (req, res) => {
     console.error(err);
     res.redirect('/projects');
   }
-})
+});
 
 module.exports = router;

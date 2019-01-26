@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>Edit Project</h1>
+    <form action="/projects/<%= project.id %>?_method=PATCH" method="POST">
+      <input
+        type="text"
+        name="title"
+        placeholder="Title"
+        value="<%= project.title %>"
+      />
+      <textarea name="description" placeholder="description">
+        <%= project.description %>
+      </textarea>
+      <input type="submit" value="Save" />
+    </form>
+  </body>
+</html>

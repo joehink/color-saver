@@ -12,9 +12,11 @@
     <a href="/projects/new">+ Project</a>
     <div>
       <% for (let project of projects) { %>
-            <div class="">
-              <%= project.title %>
-            </div>
+        <a href="/projects/<%= project.id %>">
+          <div class="">
+            <%= project.title %>
+          </div>
+        </a>
       <% } %>
     </div>
   </body>
