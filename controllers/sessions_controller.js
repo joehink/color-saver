@@ -13,13 +13,15 @@ router.get('/new', (req, res) => {
 router.post('/', async (req, res)=>{
   try {
     // Query for user with given username
-    const foundUser = await User.findOne({ username: req.body.username })
+    const foundUser = await User.findOne({
+      lowercaseUsername: req.body.username.toLowerCase()
+    })
 
     // If given password matches password for foundUser
     if(bcrypt.compareSync(req.body.password, foundUser.password)) {
       // Set the foundUser as the current user
       req.session.currentUser = foundUser;
-      console.log(req.session.currentUser);
+
       // Redirect to the user's projects
       res.redirect('/projects');
     } else {
@@ -35,7 +37,6 @@ router.post('/', async (req, res)=>{
 // Log Out
 router.delete('/', (req, res)=>{
   req.session.destroy(() => {
-    console.log(req.session.currentUser);
     res.redirect('/');
   });
 });

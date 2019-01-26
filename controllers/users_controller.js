@@ -14,6 +14,9 @@ router.post('/', async (req, res) => {
     // replace string password with encrypted password using bcrypt
     req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
 
+    // Save lowercase version of username
+    req.body.lowercaseUsername = req.body.username.toLowerCase();
+
     // Create new user with username and encrypted password
     const createdUser = await User.create(req.body);
 
