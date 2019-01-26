@@ -30,7 +30,8 @@ router.get('/new', (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     // find project
-    const foundProject = await Project.findById(req.params.id);
+    const foundProject = await Project.findById(req.params.id)
+                                      .populate('colors');
 
     // render project show page with project data
     res.render('projects/show.ejs', { project: foundProject });

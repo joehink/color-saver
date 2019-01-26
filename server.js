@@ -49,3 +49,6 @@ app.use('/sessions', sessionsController);
 
 const projectsController = require('./controllers/projects_controller');
 app.use('/projects', requireLogin, projectsController);
+
+const colorsController = require('./controllers/colors_controller');
+app.use('/projects/:projectId/colors', requireLogin, colorsController);
