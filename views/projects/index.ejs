@@ -10,5 +10,12 @@
       <input type="submit" value="Logout" />
     </form>
     <a href="/projects/new">+ Project</a>
+    <div>
+      <% for (let project of projects) { %>
+            <div class="">
+              <%= project.title %>
+            </div>
+      <% } %>
+    </div>
   </body>
 </html>
