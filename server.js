@@ -3,7 +3,8 @@ require('dotenv').config();
 const express = require('express');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
-const session = require('express-session')
+const requireLogin = require('./middlewares/requireLogin');
+const session = require('express-session');
 
 // CONFIGURATION
 const app = express();
@@ -47,4 +48,4 @@ const sessionsController = require('./controllers/sessions_controller');
 app.use('/sessions', sessionsController);
 
 const projectsController = require('./controllers/projects_controller');
-app.use('/projects', projectsController);
+app.use('/projects', requireLogin, projectsController);
