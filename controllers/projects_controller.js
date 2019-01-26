@@ -4,7 +4,7 @@ const router = express.Router();
 const User = require('../models/users');
 const Project = require('../models/projects');
 
-// Show projects belonging to user
+// Show index of projects belonging to user
 router.get('/', async (req, res) => {
   try {
     // Find currentUser with populated projects
@@ -19,10 +19,12 @@ router.get('/', async (req, res) => {
   }
 });
 
+
 // New project
 router.get('/new', (req, res) => {
   res.render('projects/new.ejs');
 });
+
 
 // Show project
 router.get('/:id', async (req, res) => {
@@ -38,6 +40,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+
 // Edit project
 router.get('/:id/edit', async (req, res) => {
   try {
@@ -51,6 +54,7 @@ router.get('/:id/edit', async (req, res) => {
     res.redirect(`/projects/${req.params.id}`);
   }
 });
+
 
 // Update project
 router.patch('/:id', async (req, res) => {
@@ -69,7 +73,8 @@ router.patch('/:id', async (req, res) => {
     console.error(err);
     res.redirect('/projects');
   }
-})
+});
+
 
 // Create Project
 router.post('/', async (req, res) => {
@@ -93,5 +98,27 @@ router.post('/', async (req, res) => {
     res.redirect('/projects');
   }
 });
+
+
+router.delete('/:id', async (req, res) => {
+  try {
+    // Remove reference to project in user
+    const updatedUser = await User.findByIdAndUpdate(
+      req.session.currentUser._id,
+      { $pull: { projects: req.params.id } },
+      { new: true }
+    );
+
+    // Delete project from db
+    const deletedProject = await Project.findByIdAndRemove(req.params.id);
+
+    // redirect to index of user projects
+    res.redirect('/projects');
+  } catch (err) {
+    console.error(err);
+    res.redirect('/projects');
+  }
+});
+
 
 module.exports = router;
