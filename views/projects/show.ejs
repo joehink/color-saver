@@ -13,9 +13,11 @@
     </form>
     <div class="">
       <% for (let color of project.colors) { %>
+        <a href="/projects/<%= project.id %>/colors/<%= color.id %>">
           <div>
             <%= color.name %>
           </div>
+        </a>
       <% } %>
     </div>
   </body>

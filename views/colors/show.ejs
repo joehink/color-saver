@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>Color show page</h1>
+    <p><%= color.name %></p>
+    <p><%= color.value %></p>
+    <a href="/projects/<%= projectId %>/colors/<%= color.id %>/edit">
+      Edit
+    </a>
+    <form
+      action="/projects/<%= projectId %>/colors/<%= color.id %>?_method=DELETE"
+      method="POST"
+    >
+      <input type="submit" value="Delete">
+    </form>
+  </body>
+</html>

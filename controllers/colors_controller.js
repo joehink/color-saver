@@ -11,6 +11,34 @@ router.get('/new', (req, res) => {
   });
 });
 
+// Show color
+router.get('/:id', async (req, res) => {
+  try {
+    const foundColor = await Color.findById(req.params.id);
+    res.render('colors/show.ejs', {
+      color: foundColor,
+      projectId: req.params.projectId
+    })
+  } catch (err) {
+    console.error(err);
+    res.redirect(`/projects/${req.params.projectId}`);
+  }
+});
+
+// Edit color
+router.get('/:id/edit', async (req, res) => {
+  try {
+    const foundColor = await Color.findById(req.params.id);
+    res.render('colors/edit.ejs', {
+      color: foundColor,
+      projectId: req.params.projectId
+    });
+  } catch (err) {
+    console.error(err);
+    res.redirect(`/projects/${req.params.projectId}`);
+  }
+});
+
 
 // Create color
 router.post('/', async (req, res) => {
@@ -34,6 +62,16 @@ router.post('/', async (req, res) => {
     res.redirect(`/projects/${req.params.projectId}`);
   }
 });
+
+router.put('/:id', async (req, res) => {
+  try {
+    const oldColor = await Color.findByIdAndUpdate(req.params.id, req.body);
+    res.redirect(`/projects/${req.params.projectId}/colors/${req.params.id}`);
+  } catch (err) {
+    console.error(err);
+    res.redirect(`/projects/${req.params.projectId}/colors/${req.params.id}`);
+  }
+})
 
 
 module.exports = router;

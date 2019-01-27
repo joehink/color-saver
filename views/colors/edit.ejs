@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>Edit Color</h1>
+    <form
+      action="/projects/<%= projectId %>/colors/<%= color.id %>?_method=PUT"
+      method="POST"
+    >
+      <input
+        type="text"
+        name="name"
+        placeholder="Name"
+        value="<%= color.name %>"
+      />
+      <input
+        type="text"
+        name="value"
+        placeholder="Hex or RGB value"
+        value="<%= color.value %>"
+      />
+      <input type="submit" value="Save">
+    </form>
+  </body>
+</html>
