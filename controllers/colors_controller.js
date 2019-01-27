@@ -71,6 +71,24 @@ router.put('/:id', async (req, res) => {
     console.error(err);
     res.redirect(`/projects/${req.params.projectId}/colors/${req.params.id}`);
   }
+});
+
+router.delete('/:id', async (req, res) => {
+  try {
+    const deletedColor = await Color.findByIdAndRemove(req.params.id);
+
+    // Remove reference to color in project
+    const updatedProject = await Project.findByIdAndUpdate(
+      req.params.projectId,
+      { $pull: { colors: req.params.id } },
+      { new: true }
+    );
+
+    res.redirect(`/projects/${req.params.projectId}`)
+  } catch (err) {
+    console.error(err);
+    res.redirect(`/projects/${req.params.projectId}/colors/${req.params.id}`)
+  }
 })
 
 
