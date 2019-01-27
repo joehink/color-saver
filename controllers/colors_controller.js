@@ -6,29 +6,38 @@ const Color = require('../models/colors');
 
 // New color
 router.get('/new', (req, res) => {
+  // render new color page
   res.render('colors/new.ejs', {
     projectId: req.params.projectId
   });
 });
 
+
 // Show color
 router.get('/:id', async (req, res) => {
   try {
+    // Find color to show
     const foundColor = await Color.findById(req.params.id);
+
+    // render show page with foundColor
     res.render('colors/show.ejs', {
       color: foundColor,
       projectId: req.params.projectId
-    })
+    });
   } catch (err) {
     console.error(err);
     res.redirect(`/projects/${req.params.projectId}`);
   }
 });
 
+
 // Edit color
 router.get('/:id/edit', async (req, res) => {
   try {
+    // Find color to edit
     const foundColor = await Color.findById(req.params.id);
+
+    // render edit page with foundColor
     res.render('colors/edit.ejs', {
       color: foundColor,
       projectId: req.params.projectId
@@ -63,9 +72,14 @@ router.post('/', async (req, res) => {
   }
 });
 
+
+// Update color
 router.put('/:id', async (req, res) => {
   try {
+    // find color and update with req.body
     const oldColor = await Color.findByIdAndUpdate(req.params.id, req.body);
+
+    // redirect to color show page
     res.redirect(`/projects/${req.params.projectId}/colors/${req.params.id}`);
   } catch (err) {
     console.error(err);
@@ -73,8 +87,11 @@ router.put('/:id', async (req, res) => {
   }
 });
 
+
+// Delete color
 router.delete('/:id', async (req, res) => {
   try {
+    // find color and delete from db
     const deletedColor = await Color.findByIdAndRemove(req.params.id);
 
     // Remove reference to color in project
@@ -84,6 +101,7 @@ router.delete('/:id', async (req, res) => {
       { new: true }
     );
 
+    // redirect to project show page
     res.redirect(`/projects/${req.params.projectId}`)
   } catch (err) {
     console.error(err);
