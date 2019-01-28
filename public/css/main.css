@@ -318,6 +318,14 @@ input[type=text], textarea {
   width: 100%;
 }
 
+.error-message {
+  padding: 5px;
+  border-radius: 5px;
+  background: red;
+  color: white;
+  text-align: center;
+}
+
 
 @media(min-width: 768px) {
   .item-wrapper {

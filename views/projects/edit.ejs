@@ -19,7 +19,11 @@
               <i class="far fa-edit"></i>
             </div>
             <h3>Edit Project</h3>
-            <%= message %>
+            <% if (message.length > 0) { %>
+              <p class="error-message">
+                <%= message %>
+              </p>
+            <% } %>
             <form action="/projects/<%= project.id %>?_method=PATCH" method="POST">
               <label for="title">Title</label>
               <input

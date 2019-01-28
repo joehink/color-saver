@@ -19,7 +19,12 @@
           </a>
           <div class="form-container">
             <div class="color-sample" style="background: <%= color.value %>;"></div>
-            <%= message %>
+            <% if (message.length > 0) { %>
+              <p class="error-message">
+                <%= message %>
+              </p>
+            <% } %>
+
             <form
               action="/projects/<%= projectId %>/colors/<%= color.id %>?_method=PUT"
               method="POST"

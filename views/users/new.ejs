@@ -5,7 +5,11 @@
     <title></title>
   </head>
   <body>
-    <%= message %>
+    <% if (message.length > 0) { %>
+      <p class="error-message">
+        <%= message %>
+      </p>
+    <% } %>
     <h1>New User</h1>
     <form action="/users" method="POST">
       <input type="text" name="username">
