@@ -1,24 +1,42 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
-    <title></title>
+    <% include ../partials/head.ejs %>
   </head>
   <body>
-    <h1>Project Page</h1>
-    <a href="/projects/<%= project.id %>/colors/new">+ Color</a>
-    <a href="/projects/<%= project.id %>/edit">Edit</a>
-    <form action="/projects/<%= project.id %>?_method=DELETE" method="POST">
-      <input type="submit" value="Delete Project">
-    </form>
-    <div class="">
-      <% for (let color of project.colors) { %>
-        <a href="/projects/<%= project.id %>/colors/<%= color.id %>">
-          <div>
-            <%= color.name %>
-          </div>
+    <% include ../partials/nav.ejs %>
+    <div class="container">
+      <nav id="secondary-nav" class="top-element">
+        <a class="back-btn" href="/projects">
+          <i class="fas fa-arrow-left"></i>  Back to Projects
         </a>
-      <% } %>
+        <a class="btn btn-black" href="/projects/<%= project.id %>/colors/new">
+          <i class="fas fa-plus"></i> Color
+        </a>
+        <a class="btn btn-black" href="/projects/<%= project.id %>/edit">
+          Edit
+        </a>
+        <form action="/projects/<%= project.id %>?_method=DELETE" method="POST">
+          <input class="btn btn-red" type="submit" value="Delete">
+        </form>
+      </nav>
+      <h1><%= project.title %></h1>
+      <div class="flex-grid">
+        <% for (let color of project.colors) { %>
+          <div class="item-wrapper">
+            <a
+              class="item color-item"
+              style="background: <%= color.value %>;"
+              href="/projects/<%= project.id %>/colors/<%= color.id %>"
+            >
+            <span class="color-name">
+              <%= color.name %>
+            </span>
+            </a>
+          </div>
+        <% } %>
+      </div>
     </div>
+
   </body>
 </html>

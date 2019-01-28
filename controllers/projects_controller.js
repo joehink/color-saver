@@ -12,7 +12,9 @@ router.get('/', async (req, res) => {
                                   .populate('projects');
 
     // render all user projects in projects index
-    res.render('projects/index.ejs', { projects: currentUser.projects });
+    res.render('projects/index.ejs', {
+      projects: currentUser.projects
+    });
   } catch (err) {
     console.error(err);
     res.redirect('/')

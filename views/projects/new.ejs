@@ -1,16 +1,33 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
-    <title></title>
+    <% include ../partials/head.ejs %>
   </head>
   <body>
-    <h1>New Project</h1>
-    <form action="/projects" method="POST">
-      <input type="text" name="title" placeholder="Title" />
-      <textarea name="description" placeholder="description">
-      </textarea>
-      <input type="submit" value="Create" />
-    </form>
+    <div class="flex-page">
+      <% include ../partials/nav.ejs %>
+      <div class="flex-center-background">
+        <div class="form-wrapper">
+          <a class="back-btn" href="/projects">
+            <i class="fas fa-arrow-left"></i> Go Back
+          </a>
+          <div class="icon-wrapper">
+            <i class="fas fa-folder-plus"></i>
+          </div>
+          <h3>New Project</h3>
+
+          <form action="/projects" method="POST">
+            <label for="title">Title</label>
+            <input id="title" type="text" name="title" />
+            <label for="description">Description</label>
+            <textarea
+              id="Description"
+              name="description"
+            ></textarea>
+            <input class="btn btn-green submit" type="submit" value="Create" />
+          </form>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

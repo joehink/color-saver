@@ -1,0 +1,312 @@
+/* ========= Imports ========= */
+@import url('https://fonts.googleapis.com/css?family=Lato|Patua+One');
+
+/* ========= Global ========= */
+body * {
+  font-family: 'Lato', sans-serif;
+  box-sizing: border-box;
+}
+
+.top-element {
+  margin-top: 25px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  width: 90%;
+}
+
+h1 {
+  text-align: center;
+}
+
+h4 {
+  text-align: center;
+  margin: 15px 0 15px;
+}
+
+h3 {
+  text-align: center;
+}
+
+.flex-grid {
+  display: flex;
+  flex-wrap: wrap;
+  padding-bottom: 25px;
+}
+
+.item-wrapper {
+  width: 100%;
+}
+
+.item {
+  display: block;
+  width: 100%;
+  height: 250px;
+  border-radius: 25px;
+  margin: 25px auto 0;
+  text-decoration: none;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  padding: 20px;
+}
+
+.flex-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.flex-center-background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.back-btn {
+  text-decoration: none;
+  color: black;
+  margin-bottom: 15px;
+  display: block;
+}
+
+.icon-wrapper {
+  background: #EEE;
+  border-radius: 100%;
+  height: 100px;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+  margin: 20px auto;
+}
+
+.fa-folder-plus, .fa-edit , .icon-wrapper .fa-plus {
+  font-size: 36px;
+}
+
+.color-sample {
+  border-radius: 100%;
+  height: 100px;
+  width: 100px;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+  margin: 20px auto;
+}
+
+/* ========= Buttons ========= */
+.btn-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-group > * {
+  width: 50%;
+}
+
+.btn {
+  border-radius: 5px;
+  padding: 5px 10px;
+  text-decoration: none;
+  background: none;
+  margin-right: 5px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.btn-black {
+  border: 2px solid black;
+  color: black;
+  transition: all .25s linear;
+}
+
+.btn-black:hover {
+  background: black;
+  color: white;
+}
+
+.btn-green {
+  border: 2px solid green;
+  color: green;
+  transition: all .25s linear;
+}
+
+.btn-green:hover {
+  background: green;
+  color: white;
+}
+
+.btn-red {
+  border: 2px solid red;
+  color: red;
+  transition: all .25s linear;
+}
+
+.btn-red:hover {
+  background: red;
+  color: white;
+}
+
+#color-value {
+  text-align: center;
+  margin: 0 0 25px;
+}
+
+/* ========= Nav ========= */
+.nav-container {
+  display: flex;
+  align-items: center;
+  max-width: 1200px;
+  margin: auto;
+  width: 90%;
+}
+
+.nav-link {
+  background: none;
+  border: none;
+  padding: 0 5px;
+  text-decoration: none;
+}
+
+/* ========= Main Nav ========= */
+#main-nav {
+  padding: 10px 0;
+  border-bottom: 1px solid #DDD;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+}
+
+.brand-img {
+  width: 35px;
+}
+
+.brand-title {
+  font-family: 'Patua One', cursive;
+  font-size: 1.5rem;
+  padding-left: 5px;
+}
+
+/* ========= Secondary Nav ========= */
+#secondary-nav {
+  display: flex;
+  padding: 0;
+  align-items: center;
+  position: relative;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+#secondary-nav.projects-nav {
+  justify-content: flex-start;
+}
+
+#secondary-nav .back-btn {
+  margin: 0 auto 0 0;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+/* ========= Project List ========= */
+.project-item {
+  border: 2px solid black;
+  color: black;
+}
+
+h2 {
+  margin: 0;
+  padding-bottom: 5px;
+  border-bottom: 2px solid black;
+}
+
+/* ========= Color List ========= */
+.color-item {
+  position: relative;
+}
+
+.color-item span {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  color: white;
+  padding: 15px;
+  border-bottom-left-radius: 25px;
+}
+
+/* ========= Form ========= */
+.form-wrapper {
+  background: white;
+  padding: 20px;
+  width: 95%;
+  max-width: 400px;
+  margin: auto;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  border-radius: 3px;
+}
+
+.form-container {
+  max-width: 300px;
+  margin: auto;
+}
+
+form * {
+  display: block;
+}
+
+.submit {
+  margin: 35px 0 20px;
+}
+
+input[type=text], textarea {
+  border: 2px solid #DDD;
+  border-radius: 5px;
+  padding: 5px;
+  width: 100%;
+  margin: 10px 0;
+}
+
+.form-wrapper input[type=submit] {
+  width: 100%;
+}
+
+
+@media(min-width: 768px) {
+  .item-wrapper {
+    width: 50%;
+  }
+  .item {
+    width: 300px;
+    height: 300px;
+    margin: 25px auto;
+  }
+  #secondary-nav .back-btn {
+    width: unset;
+    margin-bottom: 0;
+  }
+  #secondary-nav {
+    justify-content: flex-end;
+  }
+}
+
+@media(min-width: 1000px) {
+  .item-wrapper {
+    width: 33.3%;
+  }
+}
+
+@media(min-width: 1200px) {
+  .item-wrapper {
+    width: 25%;
+  }
+  .item {
+    width: 250px;
+    height: 250px;
+    margin: 25px auto;
+  }
+}

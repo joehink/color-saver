@@ -1,15 +1,31 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
-    <title></title>
+    <% include ../partials/head.ejs %>
   </head>
   <body>
-    <h1>New Color</h1>
-    <form class="" action="/projects/<%= projectId %>/colors" method="POST">
-      <input type="text" name="name" placeholder="Name" />
-      <input type="text" name="value" placeholder="Hex or RGB value" />
-      <input type="submit" value="Create">
-    </form>
+    <div class="flex-page">
+      <% include ../partials/nav.ejs %>
+      <div class="flex-center-background">
+        <div class="form-wrapper">
+          <a class="back-btn" href="/projects/<%= projectId %>">
+            <i class="fas fa-arrow-left"></i> Go Back
+          </a>
+          <div class="form-container">
+            <div class="icon-wrapper">
+              <i class="fas fa-plus"></i>
+            </div>
+            <h3>New Color</h3>
+            <form action="/projects/<%= projectId %>/colors" method="POST">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="Name" />
+              <label for="value">Value</label>
+              <input type="text" id="value" name="value" placeholder="Hex or RGB value" />
+              <input class="btn btn-green submit" type="submit" value="Create">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
