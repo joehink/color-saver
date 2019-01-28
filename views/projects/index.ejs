@@ -23,8 +23,17 @@
                 class="color-id"
                 style="background: <%= project.color %>;"
               ></div>
-              <h2><%= project.title %></h2>
-              <p><%= project.description %></p>
+              <% if (project.title.length > 19) { %>
+                <h2><%= project.title.slice(0, 19) + '...' %></h2>
+              <% } else { %>
+                <h2><%= project.title %></h2>
+              <% } %>
+
+              <% if (project.description.length > 75) { %>
+                <p><%= project.description.slice(0, 75) + '...' %></p>
+              <% } else { %>
+                <p><%= project.description %></p>
+              <% } %>
             </a>
           </div>
         <% } %>
