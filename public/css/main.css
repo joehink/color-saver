@@ -105,6 +105,7 @@ h3 {
   justify-content: center;
   align-items: center;
   flex: 1;
+  padding: 25px 0;
 }
 
 .back-btn {

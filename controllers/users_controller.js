@@ -3,12 +3,16 @@ const express = require('express');
 const router = express.Router();
 
 const signUpValidation = require('../middlewares/validation/signUpValidation');
+const randomGradient = require('../middlewares/randomGradient');
 
 const User = require('../models/users');
 
-router.get('/new', (req, res) => {
+router.get('/new', randomGradient, (req, res) => {
   // Render sign up page
-  res.render('users/new.ejs', { message: req.flash('error') });
+  res.render('users/new.ejs', {
+    message: req.flash('error'),
+    randomGradient: req.randomGradient
+  });
 })
 
 router.post('/', signUpValidation, async (req, res) => {
