@@ -18,6 +18,10 @@
         <% for (let project of projects) { %>
           <div class="item-wrapper">
             <a class="item project-item" href="/projects/<%= project.id %>">
+              <div
+                class="color-id"
+                style="background: <%= project.color %>;"
+              ></div>
               <h2><%= project.title %></h2>
               <p><%= project.description %></p>
             </a>

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const randomGradient = require('../middlewares/randomGradient');
+const randomColor = require('../middlewares/randomColor');
 
 const User = require('../models/users');
 const Project = require('../models/projects');
@@ -85,7 +86,7 @@ router.patch('/:id', async (req, res) => {
 
 
 // Create Project
-router.post('/', async (req, res) => {
+router.post('/', randomColor, async (req, res) => {
   try {
     // Find currentUser
     const currentUser = await User.findById(req.session.currentUser._id);

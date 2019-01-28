@@ -7,7 +7,11 @@ const projectSchema = new Schema({
     required: true
   },
   description: String,
-  colors: [{ type: Schema.Types.ObjectId, ref: 'Color' }]
+  colors: [{ type: Schema.Types.ObjectId, ref: 'Color' }],
+  color: {
+    type: String,
+    required: true
+  }
 }, { timestamps: true });
 
 const Project = mongoose.model('Project', projectSchema);
