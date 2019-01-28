@@ -20,7 +20,12 @@
           <input class="btn btn-red" type="submit" value="Delete">
         </form>
       </nav>
-      <h1><%= project.title %></h1>
+      <% if (project.title.length > 40) { %>
+          <h1><%= project.title.slice(0, 40) + '...' %></h1>
+      <% } else { %>
+        <h1><%= project.title %></h1>
+      <% } %>
+
 
       <div class="flex-grid">
         <% if (project.colors.length > 0) { %>

@@ -61,6 +61,7 @@ body * {
 
 h1 {
   text-align: center;
+  word-wrap: break-word;
 }
 
 h4 {
