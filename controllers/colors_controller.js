@@ -1,14 +1,17 @@
 const express = require('express');
 const router = express.Router({mergeParams: true});
 
+const randomGradient = require('../middlewares/randomGradient');
+
 const Project = require('../models/projects');
 const Color = require('../models/colors');
 
 // New color
-router.get('/new', (req, res) => {
+router.get('/new', randomGradient, (req, res) => {
   // render new color page
   res.render('colors/new.ejs', {
-    projectId: req.params.projectId
+    projectId: req.params.projectId,
+    randomGradient: req.randomGradient
   });
 });
 

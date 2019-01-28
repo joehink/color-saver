@@ -72,15 +72,15 @@ h3 {
 }
 
 .icon-wrapper {
-  background: #EEE;
   border-radius: 100%;
   height: 100px;
   width: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.25);
   margin: 20px auto;
+  border: 1px solid #DDD;
 }
 
 .fa-folder-plus, .fa-edit , .icon-wrapper .fa-plus {

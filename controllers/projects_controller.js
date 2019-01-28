@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
+const randomGradient = require('../middlewares/randomGradient');
+
 const User = require('../models/users');
 const Project = require('../models/projects');
 
@@ -23,8 +25,8 @@ router.get('/', async (req, res) => {
 
 
 // New project
-router.get('/new', (req, res) => {
-  res.render('projects/new.ejs');
+router.get('/new', randomGradient, (req, res) => {
+  res.render('projects/new.ejs', { randomGradient: req.randomGradient });
 });
 
 
@@ -45,13 +47,16 @@ router.get('/:id', async (req, res) => {
 
 
 // Edit project
-router.get('/:id/edit', async (req, res) => {
+router.get('/:id/edit', randomGradient, async (req, res) => {
   try {
     // find project
     const foundProject = await Project.findById(req.params.id);
 
     // render project edit page with project data
-    res.render('projects/edit.ejs', { project: foundProject });
+    res.render('projects/edit.ejs', {
+      project: foundProject,
+      randomGradient: req.randomGradient
+    });
   } catch (err) {
     console.error(err);
     res.redirect(`/projects/${req.params.id}`);
