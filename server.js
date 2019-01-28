@@ -8,6 +8,8 @@ const mongoose = require('mongoose');
 const requireLogin = require('./middlewares/requireLogin');
 const session = require('express-session');
 
+const randomGradient = require('./middlewares/randomGradient');
+
 // CONFIGURATION
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -22,12 +24,9 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }));
-// app.use(expressValidator());
+
 app.use(flash());
-// app.use((req, res, next) => {
-//   res.locals.messages = require('express-messages')(req, res);
-//   next();
-// });
+
 
 // DATABASE
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
@@ -41,11 +40,11 @@ app.listen(PORT, () => {
 })
 
 // ROUTES
-app.get('/', (req, res) => {
+app.get('/', randomGradient, (req, res) => {
   if (req.session.currentUser) {
     res.redirect('/projects');
   } else {
-    res.render('index.ejs');
+    res.render('index.ejs', { randomGradient: req.randomGradient });
   }
 })
 

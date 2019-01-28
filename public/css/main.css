@@ -7,6 +7,48 @@ body * {
   box-sizing: border-box;
 }
 
+.splash {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.index-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 25px;
+}
+
+.index-container .btn {
+  margin: 10px;
+}
+
+.index-container h2 {
+  border: none;
+  margin: 0 0 25px 0;
+}
+
+.index-title {
+  font-family: 'Patua One', cursive;
+  font-size: 2.5em;
+  margin-left: 5px;
+}
+
+.index-img {
+  width: 50px;
+  margin-bottom: 5px;
+}
+
+.index-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 40px;
+}
+
 .top-element {
   margin-top: 25px;
 }
@@ -349,6 +391,13 @@ input[type=text], textarea {
   .item-wrapper {
     width: 33.3%;
   }
+  /* https://www.gradient-animator.com/ */
+  .splash {
+    -webkit-animation: splash-animationv 8s ease infinite;
+    -moz-animation: splash-animation 8s ease infinite;
+    animation: splash-animation 8s ease infinite;
+    background-size: 250% 250%;
+  }
 }
 
 @media(min-width: 1200px) {
@@ -360,4 +409,21 @@ input[type=text], textarea {
     height: 250px;
     margin: 25px auto;
   }
+}
+
+/* https://www.gradient-animator.com/ */
+@-webkit-keyframes splash-animation {
+    0%{background-position:0% 91%}
+    50%{background-position:100% 10%}
+    100%{background-position:0% 91%}
+}
+@-moz-keyframes splash-animation {
+    0%{background-position:0% 91%}
+    50%{background-position:100% 10%}
+    100%{background-position:0% 91%}
+}
+@keyframes splash-animation {
+    0%{background-position:0% 91%}
+    50%{background-position:100% 10%}
+    100%{background-position:0% 91%}
 }

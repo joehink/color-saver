@@ -4,12 +4,19 @@
     <% include ./partials/head.ejs %>
   </head>
   <body>
-    <div class="">
-      <div class="">
-        <h1>Hello!</h1>
-        <a href="/sessions/new">Log In</a>
-        <span>or</span>
-        <a href="/users/new">Sign Up</a>
+    <div class="splash" style="background-image: <%= randomGradient %>;">
+      <div class="form-wrapper">
+        <div class="index-container">
+          <div class="index-logo">
+            <img class="index-img" src="/images/logo.png" alt="">
+            <span class="index-title">Color Saver</span>
+          </div>
+          <div class="">
+            <a class="btn btn-black" href="/sessions/new">Log In</a>
+            <span>or</span>
+            <a class="btn btn-black" href="/users/new">Sign Up</a>
+          </div>
+        </div>
       </div>
     </div>
   </body>
