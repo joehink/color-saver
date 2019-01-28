@@ -9,7 +9,7 @@ const session = require('express-session');
 // CONFIGURATION
 const app = express();
 const PORT = process.env.PORT || 3000;
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/color_saver';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/color_saver';
 
 // MIDDLEWARE
 app.use(express.urlencoded({ extended: false }));
@@ -22,7 +22,7 @@ app.use(session({
 }));
 
 // DATABASE
-mongoose.connect(MONGO_URI, { useNewUrlParser: true })
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
 mongoose.connection.once('open', () => {
   console.log('Connected to db');
 })
