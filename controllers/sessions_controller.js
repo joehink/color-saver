@@ -2,15 +2,17 @@ const bcrypt = require('bcrypt');
 const express = require('express');
 const router = express.Router();
 
+const logInValidation = require('../middlewares/validation/logInValidation');
+
 const User = require('../models/users');
 
 // Render log in page
 router.get('/new', (req, res) => {
-  res.render('sessions/new.ejs');
+  res.render('sessions/new.ejs', { message: req.flash('error') });
 });
 
 // Log In
-router.post('/', async (req, res)=>{
+router.post('/', logInValidation, async (req, res)=>{
   try {
     // Query for user with given username
     const foundUser = await User.findOne({
@@ -25,8 +27,9 @@ router.post('/', async (req, res)=>{
       // Redirect to the user's projects
       res.redirect('/projects');
     } else {
+      req.flash('error', "Incorrect password.")
       // Password was incorrect
-      res.send('<a href="/">Wrong password</a>');
+      res.redirect('/sessions/new');
     }
   } catch (err) {
     console.error(err);

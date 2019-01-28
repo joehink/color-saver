@@ -2,14 +2,16 @@ const bcrypt = require('bcrypt');
 const express = require('express');
 const router = express.Router();
 
+const signUpValidation = require('../middlewares/validation/signUpValidation');
+
 const User = require('../models/users');
 
 router.get('/new', (req, res) => {
   // Render sign up page
-  res.render('users/new.ejs');
+  res.render('users/new.ejs', { message: req.flash('error') });
 })
 
-router.post('/', async (req, res) => {
+router.post('/', signUpValidation, async (req, res) => {
   try {
     // replace string password with encrypted password using bcrypt
     req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));

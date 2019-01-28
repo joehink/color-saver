@@ -1,0 +1,9 @@
+<div class="">
+  <% for (let type of Object.keys(messages)) { %>
+    <% for (let message of messages[type]) { %>
+          <div class="error-message">
+            <%= message %>
+          </div>
+    <% } %>
+  <% } %>
+</div>

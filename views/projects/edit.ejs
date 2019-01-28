@@ -19,6 +19,7 @@
               <i class="far fa-edit"></i>
             </div>
             <h3>Edit Project</h3>
+            <%= message %>
             <form action="/projects/<%= project.id %>?_method=PATCH" method="POST">
               <label for="title">Title</label>
               <input

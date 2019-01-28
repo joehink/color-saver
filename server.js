@@ -1,6 +1,8 @@
 require('dotenv').config();
 // DEPENDENCIES
 const express = require('express');
+const expressValidator = require('express-validator');
+const flash = require('connect-flash');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const requireLogin = require('./middlewares/requireLogin');
@@ -20,6 +22,12 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }));
+// app.use(expressValidator());
+app.use(flash());
+// app.use((req, res, next) => {
+//   res.locals.messages = require('express-messages')(req, res);
+//   next();
+// });
 
 // DATABASE
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true })

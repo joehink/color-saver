@@ -3,6 +3,8 @@ const router = express.Router();
 
 const randomGradient = require('../middlewares/randomGradient');
 const randomColor = require('../middlewares/randomColor');
+const createProjectValidation = require('../middlewares/validation/createProjectValidation');
+const editProjectValidation = require('../middlewares/validation/editProjectValidation');
 
 const User = require('../models/users');
 const Project = require('../models/projects');
@@ -28,7 +30,10 @@ router.get('/', async (req, res) => {
 
 // New project
 router.get('/new', randomGradient, (req, res) => {
-  res.render('projects/new.ejs', { randomGradient: req.randomGradient });
+  res.render('projects/new.ejs', {
+    randomGradient: req.randomGradient,
+    message: req.flash('error')
+  });
 });
 
 
@@ -57,7 +62,8 @@ router.get('/:id/edit', randomGradient, async (req, res) => {
     // render project edit page with project data
     res.render('projects/edit.ejs', {
       project: foundProject,
-      randomGradient: req.randomGradient
+      randomGradient: req.randomGradient,
+      message: req.flash('error')
     });
   } catch (err) {
     console.error(err);
@@ -67,7 +73,7 @@ router.get('/:id/edit', randomGradient, async (req, res) => {
 
 
 // Update project
-router.patch('/:id', async (req, res) => {
+router.patch('/:id', editProjectValidation, async (req, res) => {
   try {
     // PATCH because we dont't want to lose the colors array in the project
     // update title and description with req.body
@@ -87,7 +93,7 @@ router.patch('/:id', async (req, res) => {
 
 
 // Create Project
-router.post('/', randomColor, async (req, res) => {
+router.post('/', createProjectValidation, randomColor, async (req, res) => {
   try {
     // Find currentUser
     const currentUser = await User.findById(req.session.currentUser._id);
