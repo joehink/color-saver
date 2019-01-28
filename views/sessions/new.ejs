@@ -1,20 +1,39 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
-    <title></title>
+    <% include ../partials/head.ejs %>
   </head>
   <body>
-    <% if (message.length > 0) { %>
-      <p class="error-message">
-        <%= message %>
-      </p>
-    <% } %>
-    <h1>New Session</h1>
-    <form action="/sessions" method="POST">
-      <input type="text" name="username">
-      <input type="password" name="password">
-      <input type="submit" value="Log In">
-    </form>
+    <div class="flex-page">
+      <% include ../partials/nav.ejs %>
+      <div
+        class="flex-center-background"
+        style="background-image: <%= randomGradient %>;"
+      >
+        <div class="form-wrapper">
+          <a class="back-btn" href="/">
+            <i class="fas fa-arrow-left"></i> Go Back
+          </a>
+          <div class="form-container">
+            <div class="icon-wrapper">
+              <i class="fas fa-sign-in-alt"></i>
+            </div>
+            <h3>Log In</h3>
+            <% if (message.length > 0) { %>
+              <p class="error-message">
+                <%= message %>
+              </p>
+            <% } %>
+            <form action="/sessions" method="POST">
+              <label for="username">Username</label>
+              <input type="text" id="username" name="username">
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password">
+              <input class="btn btn-black submit" type="submit" value="Log In">
+            </form>
+          </div>
+        </div>
+      <div>
+    </div>
   </body>
 </html>

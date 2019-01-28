@@ -126,7 +126,7 @@ h3 {
   border: 1px solid #DDD;
 }
 
-.fa-folder-plus, .fa-edit , .icon-wrapper .fa-plus {
+.icon-wrapper i {
   font-size: 36px;
 }
 
@@ -348,7 +348,7 @@ form * {
   margin: 35px 0 20px;
 }
 
-input[type=text], textarea {
+input[type=text], textarea, input[type=password] {
   border: 2px solid #DDD;
   border-radius: 5px;
   padding: 5px;

@@ -3,12 +3,16 @@ const express = require('express');
 const router = express.Router();
 
 const logInValidation = require('../middlewares/validation/logInValidation');
+const randomGradient = require('../middlewares/randomGradient');
 
 const User = require('../models/users');
 
 // Render log in page
-router.get('/new', (req, res) => {
-  res.render('sessions/new.ejs', { message: req.flash('error') });
+router.get('/new', randomGradient, (req, res) => {
+  res.render('sessions/new.ejs', {
+    message: req.flash('error'),
+    randomGradient: req.randomGradient
+  });
 });
 
 // Log In
