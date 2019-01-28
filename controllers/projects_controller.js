@@ -6,6 +6,7 @@ const randomColor = require('../middlewares/randomColor');
 
 const User = require('../models/users');
 const Project = require('../models/projects');
+const Color = require('../models/colors');
 
 // Show index of projects belonging to user
 router.get('/', async (req, res) => {
@@ -120,6 +121,11 @@ router.delete('/:id', async (req, res) => {
 
     // Delete project from db
     const deletedProject = await Project.findByIdAndRemove(req.params.id);
+
+    // Delete Colors that were in project
+    const deletedColors = await Color.deleteMany({
+      _id: { $in: deletedProject.colors }
+    });
 
     // redirect to index of user projects
     res.redirect('/projects');

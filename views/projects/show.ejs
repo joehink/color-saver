@@ -21,17 +21,30 @@
         </form>
       </nav>
       <h1><%= project.title %></h1>
+
       <div class="flex-grid">
-        <% for (let color of project.colors) { %>
+        <% if (project.colors.length > 0) { %>
+          <% for (let color of project.colors) { %>
+            <div class="item-wrapper">
+              <a
+                class="item color-item"
+                style="background: <%= color.value %>;"
+                href="/projects/<%= project.id %>/colors/<%= color.id %>"
+              >
+              <span class="color-name">
+                <%= color.name %>
+              </span>
+              </a>
+            </div>
+          <% } %>
+        <% } else { %>
           <div class="item-wrapper">
             <a
-              class="item color-item"
-              style="background: <%= color.value %>;"
-              href="/projects/<%= project.id %>/colors/<%= color.id %>"
+              class="item new-item"
+              href="/projects/<%= project.id %>/colors/new"
             >
-            <span class="color-name">
-              <%= color.name %>
-            </span>
+              <i class="fas fa-plus"></i>
+              <p>Add a New Color</p>
             </a>
           </div>
         <% } %>

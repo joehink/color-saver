@@ -14,21 +14,23 @@
           <a class="back-btn" href="/projects">
             <i class="fas fa-arrow-left"></i> Go Back
           </a>
-          <div class="icon-wrapper">
-            <i class="fas fa-folder-plus"></i>
-          </div>
-          <h3>New Project</h3>
+          <div class="form-container">
+            <div class="icon-wrapper">
+              <i class="fas fa-folder-plus"></i>
+            </div>
+            <h3>New Project</h3>
 
-          <form action="/projects" method="POST">
-            <label for="title">Title</label>
-            <input id="title" type="text" name="title" />
-            <label for="description">Description</label>
-            <textarea
-              id="Description"
-              name="description"
-            ></textarea>
-            <input class="btn btn-green submit" type="submit" value="Create" />
-          </form>
+            <form action="/projects" method="POST">
+              <label for="title">Title</label>
+              <input id="title" type="text" name="title" />
+              <label for="description">Description</label>
+              <textarea
+                id="Description"
+                name="description"
+              ></textarea>
+              <input class="btn btn-green submit" type="submit" value="Create" />
+            </form>
+          </div>
         </div>
       </div>
     </div>

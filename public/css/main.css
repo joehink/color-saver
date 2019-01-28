@@ -49,6 +49,7 @@ h3 {
   text-decoration: none;
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
   padding: 20px;
+  word-wrap: break-word;
 }
 
 .flex-page {
@@ -93,6 +94,30 @@ h3 {
   width: 100px;
   box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
   margin: 20px auto;
+}
+
+.no-message {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.new-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid gray;
+  color: gray;
+}
+.new-item i {
+  font-size: 50px;
+}
+
+.new-item p {
+  margin-bottom: 0;
 }
 
 /* ========= Buttons ========= */
@@ -167,6 +192,7 @@ h3 {
   border: none;
   padding: 0 5px;
   text-decoration: none;
+  cursor: pointer;
 }
 
 /* ========= Main Nav ========= */
