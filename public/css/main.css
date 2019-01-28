@@ -180,6 +180,8 @@ h3 {
   display: flex;
   align-items: center;
   margin-right: auto;
+  color: black;
+  text-decoration: none;
 }
 
 .brand-img {
@@ -227,6 +229,7 @@ h2 {
 /* ========= Color List ========= */
 .color-item {
   position: relative;
+  border: 1px solid #DDD;
 }
 
 .color-item span {
@@ -248,6 +251,7 @@ h2 {
   margin: auto;
   box-shadow: 0 0 20px rgba(0,0,0,0.5);
   border-radius: 3px;
+  border: 1px solid #DDD;
 }
 
 .form-container {
