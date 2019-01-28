@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router({mergeParams: true});
 
 const randomGradient = require('../middlewares/randomGradient');
+const createColorValidation = require('../middlewares/validation/createColorValidation');
+const editColorValidation = require('../middlewares/validation/editColorValidation');
 
 const Project = require('../models/projects');
 const Color = require('../models/colors');
@@ -11,7 +13,8 @@ router.get('/new', randomGradient, (req, res) => {
   // render new color page
   res.render('colors/new.ejs', {
     projectId: req.params.projectId,
-    randomGradient: req.randomGradient
+    randomGradient: req.randomGradient,
+    message: req.flash('error')
   });
 });
 
@@ -43,7 +46,8 @@ router.get('/:id/edit', async (req, res) => {
     // render edit page with foundColor
     res.render('colors/edit.ejs', {
       color: foundColor,
-      projectId: req.params.projectId
+      projectId: req.params.projectId,
+      message: req.flash('error')
     });
   } catch (err) {
     console.error(err);
@@ -53,7 +57,7 @@ router.get('/:id/edit', async (req, res) => {
 
 
 // Create color
-router.post('/', async (req, res) => {
+router.post('/', createColorValidation, async (req, res) => {
   try {
     // Create a new color with req.body
     const createdColor = await Color.create(req.body);
@@ -77,7 +81,7 @@ router.post('/', async (req, res) => {
 
 
 // Update color
-router.put('/:id', async (req, res) => {
+router.put('/:id', editColorValidation, async (req, res) => {
   try {
     // find color and update with req.body
     const oldColor = await Color.findByIdAndUpdate(req.params.id, req.body);

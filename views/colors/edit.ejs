@@ -19,6 +19,7 @@
           </a>
           <div class="form-container">
             <div class="color-sample" style="background: <%= color.value %>;"></div>
+            <%= message %>
             <form
               action="/projects/<%= projectId %>/colors/<%= color.id %>?_method=PUT"
               method="POST"
