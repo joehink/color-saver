@@ -9,6 +9,10 @@ const colorSchema = new Schema({
   value: {
     type: String,
     required: true
+  },
+  createdBy: {
+    type: String,
+    required: true
   }
 }, { timestamps: true });
 

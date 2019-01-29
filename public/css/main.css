@@ -368,6 +368,10 @@ input[type=text], textarea, input[type=password] {
   width: 100%;
 }
 
+.form-wrapper > p {
+  text-align: center;
+}
+
 .error-message {
   padding: 5px;
   border-radius: 5px;

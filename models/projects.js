@@ -11,6 +11,10 @@ const projectSchema = new Schema({
   color: {
     type: String,
     required: true
+  },
+  createdBy: {
+    type: String,
+    required: true
   }
 }, { timestamps: true });
 
