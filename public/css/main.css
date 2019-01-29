@@ -71,6 +71,7 @@ h4 {
 
 h3 {
   text-align: center;
+  word-wrap: break-word;
 }
 
 .flex-grid {
@@ -323,6 +324,11 @@ h2 {
   color: white;
   padding: 15px;
   border-bottom-left-radius: 25px;
+  display: block;
+  text-overflow: ellipsis;
+  max-width: 200px;
+  overflow: hidden;
+  white-space: nowrap
 }
 
 /* ========= Form ========= */

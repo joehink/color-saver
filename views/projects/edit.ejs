@@ -3,6 +3,15 @@
   <head>
     <% include ../partials/head.ejs %>
   </head>
+  <style media="screen">
+    @media(max-width: 768px) {
+      .flex-page {
+        <% if (message.length > 0) { %>
+          height: 110vh;
+        <% } %>
+      }
+    }
+  </style>
   <body>
     <div class="flex-page">
       <% include ../partials/nav.ejs %>
@@ -33,9 +42,10 @@
                 value="<%= project.title %>"
               />
               <label for="description">Description</label>
-              <textarea id="description" name="description">
-                <%= project.description %>
-              </textarea>
+              <textarea
+                id="description"
+                name="description"
+              ><%=project.description%></textarea>
               <input class="btn btn-green submit" type="submit" value="Save" />
             </form>
           </div>

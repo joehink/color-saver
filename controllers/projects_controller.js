@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
   try {
     // Find currentUser with populated projects
     const currentUser = await User.findById(req.session.currentUser._id)
-                                  .populate('projects');
+                                  .populate({ path: 'projects', options: { sort: { 'createdAt': -1 } }})
 
     // render all user projects in projects index
     res.render('projects/index.ejs', {
