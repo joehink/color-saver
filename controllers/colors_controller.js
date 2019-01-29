@@ -6,6 +6,8 @@ const createColorValidation = require('../middlewares/validation/createColorVali
 const editColorValidation = require('../middlewares/validation/editColorValidation');
 const colorExists = require('../middlewares/colorExists');
 const projectExists = require('../middlewares/projectExists');
+const projectBelongsToUser = require('../middlewares/authorization/projectBelongsToUser');
+const colorBelongsToUser = require('../middlewares/authorization/colorBelongsToUser');
 
 const Project = require('../models/projects');
 const Color = require('../models/colors');
@@ -15,15 +17,15 @@ router.get('/notfound', randomGradient, (req, res) => {
     randomGradient: req.randomGradient
   })
 });
-//
-// router.get('/notyours', randomGradient, (req, res) => {
-//   res.render('colors/notyours.ejs', {
-//     randomGradient: req.randomGradient
-//   })
-// })
+
+router.get('/notyours', randomGradient, (req, res) => {
+  res.render('colors/notyours.ejs', {
+    randomGradient: req.randomGradient
+  })
+})
 
 // New color
-router.get('/new', projectExists, randomGradient, (req, res) => {
+router.get('/new', projectExists, projectBelongsToUser, randomGradient, (req, res) => {
   // render new color page
   res.render('colors/new.ejs', {
     projectId: req.params.projectId,
@@ -53,7 +55,7 @@ router.get('/:colorId', colorExists, async (req, res) => {
 
 
 // Edit color
-router.get('/:colorId/edit', colorExists, async (req, res) => {
+router.get('/:colorId/edit', colorExists, colorBelongsToUser, async (req, res) => {
   try {
     // Find color to edit
     const foundColor = await Color.findById(req.params.colorId);
