@@ -7,7 +7,7 @@ module.exports = async (req, res, next) => {
     if (!color) {
       return res.redirect(`/projects/${req.params.projectId}/colors/notfound`);
     }
-
+ 
     next();
   } catch (err) {
     console.error(err);
