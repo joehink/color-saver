@@ -2,13 +2,16 @@ const bcrypt = require('bcrypt');
 const express = require('express');
 const router = express.Router();
 
+// Form Validation Middleware
 const logInValidation = require('../middlewares/validation/logInValidation');
 const randomGradient = require('../middlewares/randomGradient');
 
+// Models
 const User = require('../models/users');
 
 // Render log in page
 router.get('/new', randomGradient, (req, res) => {
+  // render form for logging in
   res.render('sessions/new.ejs', {
     message: req.flash('error'),
     randomGradient: req.randomGradient
@@ -43,6 +46,7 @@ router.post('/', logInValidation, async (req, res)=>{
 
 // Log Out
 router.delete('/', (req, res)=>{
+  // remove currentUser from session
   req.session.destroy(() => {
     res.redirect('/');
   });

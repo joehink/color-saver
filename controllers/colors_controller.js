@@ -1,24 +1,37 @@
 const express = require('express');
 const router = express.Router({mergeParams: true});
 
+// Color Middleware
 const randomGradient = require('../middlewares/randomGradient');
+
+// Form Validation Middleware
 const createColorValidation = require('../middlewares/validation/createColorValidation');
 const editColorValidation = require('../middlewares/validation/editColorValidation');
+
+// Check if exists Middleware
 const doesColorExist = require('../middlewares/doesColorExist');
 const doesProjectExist = require('../middlewares/doesProjectExist');
+
+// Authorization Middleware
 const projectBelongsToUser = require('../middlewares/authorization/projectBelongsToUser');
 const colorBelongsToUser = require('../middlewares/authorization/colorBelongsToUser');
 
+
+// Models
 const Project = require('../models/projects');
 const Color = require('../models/colors');
 
+// 404 Route
 router.get('/notfound', randomGradient, (req, res) => {
+  // render page saying "color was not found."
   res.render('colors/notfound.ejs', {
     randomGradient: req.randomGradient
   })
 });
 
+// 401 (not authourized) Route
 router.get('/notyours', randomGradient, (req, res) => {
+  // Render page saying "color does not belong to you"
   res.render('colors/notyours.ejs', {
     randomGradient: req.randomGradient
   })
@@ -48,6 +61,7 @@ router.get('/:colorId', doesColorExist, async (req, res) => {
       projectId: req.params.projectId
     });
   } catch (err) {
+    // Something went wrong with query
     console.error(err);
     res.redirect(`/projects/${req.params.projectId}`);
   }
@@ -67,6 +81,7 @@ router.get('/:colorId/edit', doesColorExist, colorBelongsToUser, async (req, res
       message: req.flash('error')
     });
   } catch (err) {
+    // Something went wrong with query
     console.error(err);
     res.redirect(`/projects/${req.params.projectId}`);
   }
@@ -76,7 +91,9 @@ router.get('/:colorId/edit', doesColorExist, colorBelongsToUser, async (req, res
 // Create color
 router.post('/', createColorValidation, async (req, res) => {
   try {
+    // add currentUser id to req.body
     req.body.createdBy = req.session.currentUser._id;
+
     // Create a new color with req.body
     const createdColor = await Color.create(req.body);
 
@@ -92,6 +109,7 @@ router.post('/', createColorValidation, async (req, res) => {
     // redirect to project share page
     res.redirect(`/projects/${req.params.projectId}`);
   } catch (err) {
+    // Something went wrong with query
     console.error(err);
     res.redirect(`/projects/${req.params.projectId}`);
   }
@@ -107,6 +125,7 @@ router.put('/:colorId', editColorValidation, async (req, res) => {
     // redirect to color show page
     res.redirect(`/projects/${req.params.projectId}/colors/${req.params.colorId}`);
   } catch (err) {
+    // Something went wrong with query
     console.error(err);
     res.redirect(`/projects/${req.params.projectId}/colors/${req.params.colorId}`);
   }
@@ -129,6 +148,7 @@ router.delete('/:colorId', async (req, res) => {
     // redirect to project show page
     res.redirect(`/projects/${req.params.projectId}`)
   } catch (err) {
+    // Something went wrong with query
     console.error(err);
     res.redirect(`/projects/${req.params.projectId}/colors/${req.params.colorId}`)
   }

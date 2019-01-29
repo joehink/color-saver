@@ -1,24 +1,36 @@
 const express = require('express');
 const router = express.Router();
 
+// Color Middleware
 const randomGradient = require('../middlewares/randomGradient');
 const randomColor = require('../middlewares/randomColor');
+
+// Form Validation Middleware
 const createProjectValidation = require('../middlewares/validation/createProjectValidation');
 const editProjectValidation = require('../middlewares/validation/editProjectValidation');
+
+// Check if exists Middleware
 const doesProjectExist = require('../middlewares/doesProjectExist');
 const projectBelongsToUser = require('../middlewares/authorization/projectBelongsToUser');
 
+
+// Models
 const User = require('../models/users');
 const Project = require('../models/projects');
 const Color = require('../models/colors');
 
+
+// 404 Route
 router.get('/notfound', randomGradient, (req, res) => {
+  // render page saying "project was not found."
   res.render('projects/notfound.ejs', {
     randomGradient: req.randomGradient
   })
 });
 
+// 401 (not authourized) Route
 router.get('/notyours', randomGradient, (req, res) => {
+  // Render page saying "project does not belong to you"
   res.render('projects/notyours.ejs', {
     randomGradient: req.randomGradient
   })
@@ -38,6 +50,7 @@ router.get('/', async (req, res) => {
       projects: currentUser.projects
     });
   } catch (err) {
+    // Something went wrong with query
     console.error(err);
     res.redirect('/')
   }
@@ -46,6 +59,7 @@ router.get('/', async (req, res) => {
 
 // New project
 router.get('/new', randomGradient, (req, res) => {
+  // render page with form to create new project
   res.render('projects/new.ejs', {
     randomGradient: req.randomGradient,
     message: req.flash('error')
@@ -66,6 +80,7 @@ router.get('/:projectId', doesProjectExist, async (req, res) => {
       project: foundProject
     });
   } catch (err) {
+    // Something went wrong with query
     console.error(err);
     res.redirect('/projects');
   }
@@ -85,6 +100,7 @@ router.get('/:projectId/edit', doesProjectExist, projectBelongsToUser, randomGra
       message: req.flash('error')
     });
   } catch (err) {
+    // Something went wrong with query
     console.error(err);
     res.redirect(`/projects/${req.params.projectId}`);
   }
@@ -105,6 +121,7 @@ router.patch('/:projectId', editProjectValidation, async (req, res) => {
     // redirect to project show page
     res.redirect(`/projects/${req.params.projectId}`);
   } catch (err) {
+    // Something went wrong with query
     console.error(err);
     res.redirect('/projects');
   }
@@ -114,7 +131,9 @@ router.patch('/:projectId', editProjectValidation, async (req, res) => {
 // Create Project
 router.post('/', createProjectValidation, randomColor, async (req, res) => {
   try {
+    // add currentUser id to req.body
     req.body.createdBy = req.session.currentUser._id;
+    
     // Find currentUser
     const currentUser = await User.findById(req.session.currentUser._id);
 
@@ -130,6 +149,7 @@ router.post('/', createProjectValidation, randomColor, async (req, res) => {
     // redirect to projects index
     res.redirect('/projects');
   } catch (err) {
+    // Something went wrong with query
     console.error(err);
     res.redirect('/projects');
   }
@@ -156,6 +176,7 @@ router.delete('/:projectId', async (req, res) => {
     // redirect to index of user projects
     res.redirect('/projects');
   } catch (err) {
+    // Something went wrong with query
     console.error(err);
     res.redirect('/projects');
   }

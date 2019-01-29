@@ -2,11 +2,14 @@ const bcrypt = require('bcrypt');
 const express = require('express');
 const router = express.Router();
 
+// Form Validation Middleware
 const signUpValidation = require('../middlewares/validation/signUpValidation');
 const randomGradient = require('../middlewares/randomGradient');
 
+// Models
 const User = require('../models/users');
 
+// New Route
 router.get('/new', randomGradient, (req, res) => {
   // Render sign up page
   res.render('users/new.ejs', {
@@ -15,6 +18,7 @@ router.get('/new', randomGradient, (req, res) => {
   });
 })
 
+// Create Route
 router.post('/', signUpValidation, async (req, res) => {
   try {
     // replace string password with encrypted password using bcrypt
