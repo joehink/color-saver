@@ -11,17 +11,17 @@ const User = require('../models/users');
 const Project = require('../models/projects');
 const Color = require('../models/colors');
 
-router.get('/notfound', randomGradient, (req, res) => {
-  res.render('projects/notfound.ejs', {
-    randomGradient: req.randomGradient
-  })
-});
-
-router.get('/notyours', randomGradient, (req, res) => {
-  res.render('projects/notyours.ejs', {
-    randomGradient: req.randomGradient
-  })
-});
+// router.get('/notfound', randomGradient, (req, res) => {
+//   res.render('projects/notfound.ejs', {
+//     randomGradient: req.randomGradient
+//   })
+// });
+//
+// router.get('/notyours', randomGradient, (req, res) => {
+//   res.render('projects/notyours.ejs', {
+//     randomGradient: req.randomGradient
+//   })
+// });
 
 // Show index of projects belonging to user
 router.get('/', async (req, res) => {
@@ -58,7 +58,10 @@ router.get('/:id', async (req, res) => {
                                       .populate('colors');
 
     // render project show page with project data
-    res.render('projects/show.ejs', { project: foundProject });
+    res.render('projects/show.ejs', {
+      userId: req.session.currentUser._id,
+      project: foundProject
+    });
   } catch (err) {
     console.error(err);
     res.redirect('/projects');
@@ -108,6 +111,7 @@ router.patch('/:id', editProjectValidation, async (req, res) => {
 // Create Project
 router.post('/', createProjectValidation, randomColor, async (req, res) => {
   try {
+    req.body.createdBy = req.session.currentUser._id;
     // Find currentUser
     const currentUser = await User.findById(req.session.currentUser._id);
 

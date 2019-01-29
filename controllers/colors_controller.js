@@ -40,6 +40,7 @@ router.get('/:id', async (req, res) => {
 
     // render show page with foundColor
     res.render('colors/show.ejs', {
+      userId: req.session.currentUser._id,
       color: foundColor,
       projectId: req.params.projectId
     });
@@ -72,6 +73,7 @@ router.get('/:id/edit', async (req, res) => {
 // Create color
 router.post('/', createColorValidation, async (req, res) => {
   try {
+    req.body.createdBy = req.session.currentUser._id;
     // Create a new color with req.body
     const createdColor = await Color.create(req.body);
 

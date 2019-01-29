@@ -23,20 +23,22 @@
               <h3><%= color.name %></h3>
             <% } %>
             <input id="color-value" type="text" value="<%= color.value %>">
-            <div class="btn-group submit">
-              <a
-                class="btn btn-black"
-                href="/projects/<%= projectId %>/colors/<%= color.id %>/edit"
-              >
-                Edit
-              </a>
-              <form
-                action="/projects/<%= projectId %>/colors/<%= color.id %>?_method=DELETE"
-                method="POST"
-              >
-                <input class="btn btn-red" type="submit" value="Delete">
-              </form>
-            </div>
+            <% if (userId === color.createdBy) { %>
+              <div class="btn-group submit">
+                <a
+                  class="btn btn-black"
+                  href="/projects/<%= projectId %>/colors/<%= color.id %>/edit"
+                >
+                  Edit
+                </a>
+                <form
+                  action="/projects/<%= projectId %>/colors/<%= color.id %>?_method=DELETE"
+                  method="POST"
+                >
+                  <input class="btn btn-red" type="submit" value="Delete">
+                </form>
+              </div>
+            <% } %>
           </div>
         </div>
       </div>

@@ -7,18 +7,20 @@
     <% include ../partials/nav.ejs %>
     <div class="container">
       <nav id="secondary-nav" class="top-element">
-        <a class="back-btn" href="/projects">
-          <i class="fas fa-arrow-left"></i>  Back to Projects
-        </a>
-        <a class="btn btn-black" href="/projects/<%= project.id %>/colors/new">
-          <i class="fas fa-plus"></i> Color
-        </a>
-        <a class="btn btn-black" href="/projects/<%= project.id %>/edit">
-          Edit
-        </a>
-        <form action="/projects/<%= project.id %>?_method=DELETE" method="POST">
-          <input class="btn btn-red" type="submit" value="Delete">
-        </form>
+        <% if (userId === project.createdBy) { %>
+          <a class="back-btn" href="/projects">
+            <i class="fas fa-arrow-left"></i>  Back to Projects
+          </a>
+          <a class="btn btn-black" href="/projects/<%= project.id %>/colors/new">
+            <i class="fas fa-plus"></i> Color
+          </a>
+          <a class="btn btn-black" href="/projects/<%= project.id %>/edit">
+            Edit
+          </a>
+          <form action="/projects/<%= project.id %>?_method=DELETE" method="POST">
+            <input class="btn btn-red" type="submit" value="Delete">
+          </form>
+        <% } %>
       </nav>
       <% if (project.title.length > 40) { %>
           <h1><%= project.title.slice(0, 40) + '...' %></h1>
@@ -44,13 +46,17 @@
           <% } %>
         <% } else { %>
           <div class="item-wrapper">
-            <a
-              class="item new-item"
-              href="/projects/<%= project.id %>/colors/new"
-            >
-              <i class="fas fa-plus"></i>
-              <p>Add a New Color</p>
-            </a>
+            <% if (userId === project.createdBy) { %>
+              <a
+                class="item new-item"
+                href="/projects/<%= project.id %>/colors/new"
+              >
+                <i class="fas fa-plus"></i>
+                <p>Add a New Color</p>
+              </a>
+            <% } else { %>
+                <p class="no-message">No Colors</p>
+            <% } %>
           </div>
         <% } %>
       </div>
