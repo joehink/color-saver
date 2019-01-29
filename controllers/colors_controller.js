@@ -4,9 +4,18 @@ const router = express.Router({mergeParams: true});
 const randomGradient = require('../middlewares/randomGradient');
 const createColorValidation = require('../middlewares/validation/createColorValidation');
 const editColorValidation = require('../middlewares/validation/editColorValidation');
+const colorExistsBelongsToUser = require('../middlewares/colorExistsBelongsToUser');
 
 const Project = require('../models/projects');
 const Color = require('../models/colors');
+
+router.get('/notfound', (req, res) => {
+  res.send('color not found');
+})
+
+router.get('/notyours', (req, res) => {
+  res.send('color is not yours');
+})
 
 // New color
 router.get('/new', randomGradient, (req, res) => {
@@ -20,7 +29,7 @@ router.get('/new', randomGradient, (req, res) => {
 
 
 // Show color
-router.get('/:id', async (req, res) => {
+router.get('/:id', colorExistsBelongsToUser, async (req, res) => {
   try {
     // Find color to show
     const foundColor = await Color.findById(req.params.id);
@@ -38,7 +47,7 @@ router.get('/:id', async (req, res) => {
 
 
 // Edit color
-router.get('/:id/edit', async (req, res) => {
+router.get('/:id/edit', colorExistsBelongsToUser, async (req, res) => {
   try {
     // Find color to edit
     const foundColor = await Color.findById(req.params.id);

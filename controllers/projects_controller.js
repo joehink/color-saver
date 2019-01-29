@@ -5,10 +5,19 @@ const randomGradient = require('../middlewares/randomGradient');
 const randomColor = require('../middlewares/randomColor');
 const createProjectValidation = require('../middlewares/validation/createProjectValidation');
 const editProjectValidation = require('../middlewares/validation/editProjectValidation');
+const projectExistsBelongsToUser = require('../middlewares/projectExistsBelongsToUser');
 
 const User = require('../models/users');
 const Project = require('../models/projects');
 const Color = require('../models/colors');
+
+router.get('/notfound', (req, res) => {
+  res.send('not found')
+});
+
+router.get('/notyours', (req, res) => {
+  res.send('project is not yours')
+});
 
 // Show index of projects belonging to user
 router.get('/', async (req, res) => {
@@ -38,7 +47,7 @@ router.get('/new', randomGradient, (req, res) => {
 
 
 // Show project
-router.get('/:id', async (req, res) => {
+router.get('/:id', projectExistsBelongsToUser, async (req, res) => {
   try {
     // find project
     const foundProject = await Project.findById(req.params.id)
@@ -54,7 +63,7 @@ router.get('/:id', async (req, res) => {
 
 
 // Edit project
-router.get('/:id/edit', randomGradient, async (req, res) => {
+router.get('/:id/edit', projectExistsBelongsToUser, randomGradient, async (req, res) => {
   try {
     // find project
     const foundProject = await Project.findById(req.params.id);
