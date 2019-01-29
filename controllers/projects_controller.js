@@ -5,23 +5,23 @@ const randomGradient = require('../middlewares/randomGradient');
 const randomColor = require('../middlewares/randomColor');
 const createProjectValidation = require('../middlewares/validation/createProjectValidation');
 const editProjectValidation = require('../middlewares/validation/editProjectValidation');
-// const projectExistsBelongsToUser = require('../middlewares/projectExistsBelongsToUser');
+const projectExists = require('../middlewares/projectExists');
 
 const User = require('../models/users');
 const Project = require('../models/projects');
 const Color = require('../models/colors');
 
-// router.get('/notfound', randomGradient, (req, res) => {
-//   res.render('projects/notfound.ejs', {
-//     randomGradient: req.randomGradient
-//   })
-// });
-//
-// router.get('/notyours', randomGradient, (req, res) => {
-//   res.render('projects/notyours.ejs', {
-//     randomGradient: req.randomGradient
-//   })
-// });
+router.get('/notfound', randomGradient, (req, res) => {
+  res.render('projects/notfound.ejs', {
+    randomGradient: req.randomGradient
+  })
+});
+
+router.get('/notyours', randomGradient, (req, res) => {
+  res.render('projects/notyours.ejs', {
+    randomGradient: req.randomGradient
+  })
+});
 
 // Show index of projects belonging to user
 router.get('/', async (req, res) => {
@@ -53,7 +53,7 @@ router.get('/new', randomGradient, (req, res) => {
 
 
 // Show project
-router.get('/:projectId', async (req, res) => {
+router.get('/:projectId', projectExists, async (req, res) => {
   try {
     // find project
     const foundProject = await Project.findById(req.params.projectId)
@@ -72,7 +72,7 @@ router.get('/:projectId', async (req, res) => {
 
 
 // Edit project
-router.get('/:projectId/edit', randomGradient, async (req, res) => {
+router.get('/:projectId/edit', projectExists, randomGradient, async (req, res) => {
   try {
     // find project
     const foundProject = await Project.findById(req.params.projectId);
