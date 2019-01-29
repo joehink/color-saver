@@ -5,7 +5,7 @@ const randomGradient = require('../middlewares/randomGradient');
 const randomColor = require('../middlewares/randomColor');
 const createProjectValidation = require('../middlewares/validation/createProjectValidation');
 const editProjectValidation = require('../middlewares/validation/editProjectValidation');
-const projectExists = require('../middlewares/projectExists');
+const doesProjectExist = require('../middlewares/doesProjectExist');
 const projectBelongsToUser = require('../middlewares/authorization/projectBelongsToUser');
 
 const User = require('../models/users');
@@ -54,7 +54,7 @@ router.get('/new', randomGradient, (req, res) => {
 
 
 // Show project
-router.get('/:projectId', projectExists, async (req, res) => {
+router.get('/:projectId', doesProjectExist, async (req, res) => {
   try {
     // find project
     const foundProject = await Project.findById(req.params.projectId)
@@ -73,7 +73,7 @@ router.get('/:projectId', projectExists, async (req, res) => {
 
 
 // Edit project
-router.get('/:projectId/edit', projectExists, projectBelongsToUser, randomGradient, async (req, res) => {
+router.get('/:projectId/edit', doesProjectExist, projectBelongsToUser, randomGradient, async (req, res) => {
   try {
     // find project
     const foundProject = await Project.findById(req.params.projectId);
