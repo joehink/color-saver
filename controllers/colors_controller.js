@@ -33,10 +33,10 @@ router.get('/new', randomGradient, (req, res) => {
 
 
 // Show color
-router.get('/:id', async (req, res) => {
+router.get('/:colorId', async (req, res) => {
   try {
     // Find color to show
-    const foundColor = await Color.findById(req.params.id);
+    const foundColor = await Color.findById(req.params.colorId);
 
     // render show page with foundColor
     res.render('colors/show.ejs', {
@@ -52,10 +52,10 @@ router.get('/:id', async (req, res) => {
 
 
 // Edit color
-router.get('/:id/edit', async (req, res) => {
+router.get('/:colorId/edit', async (req, res) => {
   try {
     // Find color to edit
-    const foundColor = await Color.findById(req.params.id);
+    const foundColor = await Color.findById(req.params.colorId);
 
     // render edit page with foundColor
     res.render('colors/edit.ejs', {
@@ -96,30 +96,30 @@ router.post('/', createColorValidation, async (req, res) => {
 
 
 // Update color
-router.put('/:id', editColorValidation, async (req, res) => {
+router.put('/:colorId', editColorValidation, async (req, res) => {
   try {
     // find color and update with req.body
-    const oldColor = await Color.findByIdAndUpdate(req.params.id, req.body);
+    const oldColor = await Color.findByIdAndUpdate(req.params.colorId, req.body);
 
     // redirect to color show page
-    res.redirect(`/projects/${req.params.projectId}/colors/${req.params.id}`);
+    res.redirect(`/projects/${req.params.projectId}/colors/${req.params.colorId}`);
   } catch (err) {
     console.error(err);
-    res.redirect(`/projects/${req.params.projectId}/colors/${req.params.id}`);
+    res.redirect(`/projects/${req.params.projectId}/colors/${req.params.colorId}`);
   }
 });
 
 
 // Delete color
-router.delete('/:id', async (req, res) => {
+router.delete('/:colorId', async (req, res) => {
   try {
     // find color and delete from db
-    const deletedColor = await Color.findByIdAndRemove(req.params.id);
+    const deletedColor = await Color.findByIdAndRemove(req.params.colorId);
 
     // Remove reference to color in project
     const updatedProject = await Project.findByIdAndUpdate(
       req.params.projectId,
-      { $pull: { colors: req.params.id } },
+      { $pull: { colors: req.params.colorId } },
       { new: true }
     );
 
@@ -127,7 +127,7 @@ router.delete('/:id', async (req, res) => {
     res.redirect(`/projects/${req.params.projectId}`)
   } catch (err) {
     console.error(err);
-    res.redirect(`/projects/${req.params.projectId}/colors/${req.params.id}`)
+    res.redirect(`/projects/${req.params.projectId}/colors/${req.params.colorId}`)
   }
 })
 

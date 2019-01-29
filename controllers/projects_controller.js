@@ -28,7 +28,9 @@ router.get('/', async (req, res) => {
   try {
     // Find currentUser with populated projects
     const currentUser = await User.findById(req.session.currentUser._id)
-                                  .populate({ path: 'projects', options: { sort: { 'createdAt': -1 } }})
+                                  .populate({ path: 'projects', options: {
+                                    sort: { 'createdAt': -1 }
+                                  }});
 
     // render all user projects in projects index
     res.render('projects/index.ejs', {
@@ -51,10 +53,10 @@ router.get('/new', randomGradient, (req, res) => {
 
 
 // Show project
-router.get('/:id', async (req, res) => {
+router.get('/:projectId', async (req, res) => {
   try {
     // find project
-    const foundProject = await Project.findById(req.params.id)
+    const foundProject = await Project.findById(req.params.projectId)
                                       .populate('colors');
 
     // render project show page with project data
@@ -70,10 +72,10 @@ router.get('/:id', async (req, res) => {
 
 
 // Edit project
-router.get('/:id/edit', randomGradient, async (req, res) => {
+router.get('/:projectId/edit', randomGradient, async (req, res) => {
   try {
     // find project
-    const foundProject = await Project.findById(req.params.id);
+    const foundProject = await Project.findById(req.params.projectId);
 
     // render project edit page with project data
     res.render('projects/edit.ejs', {
@@ -83,24 +85,24 @@ router.get('/:id/edit', randomGradient, async (req, res) => {
     });
   } catch (err) {
     console.error(err);
-    res.redirect(`/projects/${req.params.id}`);
+    res.redirect(`/projects/${req.params.projectId}`);
   }
 });
 
 
 // Update project
-router.patch('/:id', editProjectValidation, async (req, res) => {
+router.patch('/:projectId', editProjectValidation, async (req, res) => {
   try {
     // PATCH because we dont't want to lose the colors array in the project
     // update title and description with req.body
     const updatedProject = await Project.findByIdAndUpdate(
-      req.params.id,
+      req.params.projectId,
       { $set: req.body },
       { new: true }
     );
 
     // redirect to project show page
-    res.redirect(`/projects/${req.params.id}`);
+    res.redirect(`/projects/${req.params.projectId}`);
   } catch (err) {
     console.error(err);
     res.redirect('/projects');
@@ -133,17 +135,17 @@ router.post('/', createProjectValidation, randomColor, async (req, res) => {
 });
 
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:projectId', async (req, res) => {
   try {
     // Remove reference to project in user
     const updatedUser = await User.findByIdAndUpdate(
       req.session.currentUser._id,
-      { $pull: { projects: req.params.id } },
+      { $pull: { projects: req.params.projectId } },
       { new: true }
     );
 
     // Delete project from db
-    const deletedProject = await Project.findByIdAndRemove(req.params.id);
+    const deletedProject = await Project.findByIdAndRemove(req.params.projectId);
 
     // Delete Colors that were in project
     const deletedColors = await Color.deleteMany({
