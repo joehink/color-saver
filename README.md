@@ -9,7 +9,9 @@ Link to live site: https://color-saver.herokuapp.com/
 ### Instructions
 
 #### Authentication
+<kbd>
 <img src="public/images/screenshots/splash.png" width="600" />
+</kbd>
 
 ##### Sign Up
 
@@ -20,7 +22,9 @@ If you have not yet created a Color Saver account, click the "Sign Up" button on
 If you have already created a Color Saver account, click the "Log In" button and type in your username and password to access your projects and colors.
 
 #### Projects
+<kbd>
 <img src="public/images/screenshots/projectIndex.png" width="600" />
+</kbd>
 
 ##### Create a New Project
 
@@ -35,8 +39,10 @@ After clicking on one of your existing projects, you will see an edit button at 
 A delete button will appear at the top of the screen after you click on one of your projects. Once you click this button, the project and all of the colors it has inside of it will be deleted forever.
 
 #### Colors
+<kbd>
 <img src="public/images/screenshots/projectShow.png" width="600" />
-
+</kbd>
+  
 ##### Create a New Color
 
 Once inside a project, You are given the choice to add a new color. After clicking the "+ Color" button at the top of the screen, you will be taken to a form for creating a new color. Both fields are required and the value field must be either a hexadecimal or RGB color value.
