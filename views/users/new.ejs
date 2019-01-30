@@ -3,6 +3,15 @@
   <head>
     <% include ../partials/head.ejs %>
   </head>
+  <style media="screen">
+    @media(max-width: 768px) {
+      .flex-page {
+        <% if (message.length > 0) { %>
+          height: 110vh;
+        <% } %>
+      }
+    }
+  </style>
   <body>
     <div class="flex-page">
       <nav id="main-nav">
