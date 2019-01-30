@@ -19,7 +19,9 @@ module.exports = async (req, res, next) => {
   }
 
   // Find user with provided username
-  const user = await User.findOne({ username: req.body.username });
+  const user = await User.findOne({
+    lowercaseUsername: req.body.username.toLowerCase()
+  });
 
   // If user exists
   if (user) {
