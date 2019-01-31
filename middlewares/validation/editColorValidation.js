@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
     // Send error saying "Must provide a name"
     req.flash('error', 'Must provide a name for the color.')
     // Redirect back to edit color form
-    return res.redirect(`/projects/${req.params.projectId}/colors/${req.params.id}/edit`);
+    return res.redirect(`/projects/${req.params.projectId}/colors/${req.params.colorId}/edit`);
   }
 
   // If value field is not a hex or rgb value
@@ -20,7 +20,7 @@ module.exports = (req, res, next) => {
     // Send error saying "Must provide hex or rgb value"
     req.flash('error', 'Must provide either a Hexidecimal or RGB color value.');
     // Redirect back to edit color form
-    return res.redirect(`/projects/${req.params.projectId}/colors/${req.params.id}/edit`);
+    return res.redirect(`/projects/${req.params.projectId}/colors/${req.params.colorId}/edit`);
   }
 
   // Call next middleware
